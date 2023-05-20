@@ -43,7 +43,7 @@ public struct TTLDictionary<Key: Hashable, Value: Any>: Collection
 		set
 		{
 			guard let newValue = newValue else { return }
-			let obj = (object: newValue, createdAt: self.time, ttl: ttl)
+			let obj = (object: newValue, createdAt: self.time, ttl: ttl > 0 ? ttl : .greatestFiniteMagnitude)
 			self.dictionary[key] = [obj] + ((self.dictionary[key]?.isEmpty ?? true) ? [] : self.dictionary[key] ?? [])
 		}
 	}
